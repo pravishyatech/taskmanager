@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            <a class="navbar-brand" href="{% url 'tasklist' %}">Task Manager</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="{% url 'tasklist' %}">Home</a></li>
+              <li><a href="{% url 'addtask' %}">Add Task</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+              <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<div class="container">
+    <div class="col-12 col-md-6">
+        <h2>Edit Task #{{task.id}}</h2>
+        <form method="post" action>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Title:</label>
+                {% load widget_tweaks %}
+                {% render_field form.title class="form-control" %}
+            </div>
+            <div class="form-group">
+            <label for="email">Description:</label>
+            {% render_field form.description class="form-control" rows="10" %}
+            </div>
+            <div class="form-group">
+                <label for="email">Status:</label>
+                {% render_field form.status class="form-control" rows="10" %}
+                </div>
+            <a href="{% url 'tasklist' %}" class="btn btn-warning">Cancel</a>
+            <button type="submit" class="btn btn-success">Save Task</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
